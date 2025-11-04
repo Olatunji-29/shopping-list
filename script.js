@@ -1,6 +1,7 @@
 
 
-const allItems = [];
+let allItems = JSON.parse(localStorage.getItem('items')) || [];
+toDisplay()
 let afterEdit = 0;
 
 const addItems = () => {
@@ -14,16 +15,18 @@ const addItems = () => {
         showError.style.display = "none"
         items.value = ""; 
         allItems.push(customerItems.toLowerCase())
+        localStorage.setItem('items', JSON.stringify(allItems) )
         toDisplay() 
     }   
 }
 
 
 const toDelete = (index) => {
-    const confirmDelete = confirm(`Are you sure you wanna delete ${allItems[index]}`);
+    const confirmDelete = confirm(`Are you sure you wanna delete (${allItems[index]})`);
 
     if(confirmDelete){
         allItems.splice(index, 1);
+        localStorage.setItem('items', JSON.stringify(allItems))
         toDisplay()
     }
     else{
@@ -42,10 +45,25 @@ const mainEdit = ()=> {
     }
     else{
         allItems.splice(afterEdit, 1, editInput.value.toLowerCase() )
+        localStorage.setItem('items', JSON.stringify(allItems))
         toDisplay()
 
     }
 }
+
+
+
+// const deleteAllItems = ()=>{
+//     const confirmDelete = confirm('Are  you sure you wanna clear all the items in your cart?');
+//     if(confirmDelete){
+//         localStorage.clear();
+//         allItems = []
+//         toDisplay()
+//     }
+//     else{
+//         toDisplay()
+//     }
+// }
 
 
 
